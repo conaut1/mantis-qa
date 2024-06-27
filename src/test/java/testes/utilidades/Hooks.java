@@ -27,13 +27,11 @@ public class Hooks extends Navegador {
     @AfterStep
     public void takeScreenshotAfterStep(Scenario scenario) {
         if (scenario.isFailed()) {
-            // Optionally, you can take a screenshot only on failure
         }
 
         final byte[] screenshot = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.BYTES);
         scenario.attach(screenshot, "image/png", "screenshot");
 
-        // Save the screenshot to a file if you need it
         File srcFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(srcFile, new File("screenshots/" + scenario.getName() + "-" + System.currentTimeMillis() + ".png"));
